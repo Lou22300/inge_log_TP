@@ -1,6 +1,6 @@
 # TP1 d'ingénierie logicielle et science reproductible :
 ## Nom :
-**bergogne**
+**Bergogne**
 ## Prénom :
 *Lou*
 ## But du projet :
