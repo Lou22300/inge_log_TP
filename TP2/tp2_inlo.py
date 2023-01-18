@@ -38,15 +38,15 @@ def adn_read(fastafile) : # takes in argument the name of the file
                         str(line_counter) + " and column " + str(column_counter)+
                         " for sequence '"+ header + "' in the file '" + fastafile +
                         "'.")
-
-for arg in sys.argv:
-    if os.path.isfile(arg) : # if file exists
-        if str(arg).split(".",maxsplit=1)[-1] in ["fasta","faa","fa"] : # extension OK
-            if is_fasta(arg) is True :
-                adn_read(arg)
+if __name__ == "__main__" :
+    for arg in sys.argv:
+        if os.path.isfile(arg) : # if file exists
+            if str(arg).split(".",maxsplit=1)[-1] in ["fasta","faa","fa"] : # extension OK
+                if is_fasta(arg) is True :
+                    adn_read(arg)
+                else :
+                    print("\n'" + str(arg) + "' is not a fasta file (no headers).")
             else :
-                print("\n'" + str(arg) + "' is not a fasta file (no headers).")
+                print("\n'" + str(arg) + "' is not a fasta file (please check the extension).")
         else :
-            print("\n'" + str(arg) + "' is not a fasta file (please check the extension).")
-    else :
-        print("\nError : the file '" + arg + "' doesn\'t exist.")
+            print("\nError : the file '" + arg + "' doesn\'t exist.")
