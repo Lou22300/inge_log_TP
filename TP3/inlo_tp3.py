@@ -17,32 +17,38 @@ class Animal() :
         self.children = []
         self.mother = mother
         
-    def add_child(self, age) :
+    def add_child(self, age) : # Pour le moment la fonction modifie le parent au lieu d'ajouter l'enfant -> qui est noté None
         """This function permits to add a child to an animal."""
-        self.children.append(child=super().__init__(self.species, self.foot, self.diet, age, [], self))
+        new_child = self.__init__(self.species, self.foot, self.diet, age, self)
+        self.children.append(new_child)
         
-    def show_parents(self, mother) :
+    def show_parents(self, mother) : # pas encore testée
         """This function permits to show all the parents/ascendants of an animal."""
         if mother == "LUCA" :
             return str(self.mother)
         else :
             return mother + super().show_parents(self.mother)
     
-    def show_children(self, children) :
+    def show_children(self, children) : # pas encore testée
         """This function permits to show all the children/descendants of an animal."""
         if children == [] :
             return "No child"
         else :
+            total_descendant = []
+            child_list = []
             for child in children :
-                return child + super().show_children(child)
+                total_descendant.append(child)
+                child_list.append(super().show_children(child))
+                total_descendant.append(child_list)
+            return total_descendant
     
     def __str__(self) -> str :
         """This function permits to show the attributes of an animal."""
         return (self.species + ", "
-                + str(self.foot) + ", "
-                + str(self.age) + ", "
-                + self.diet + ", "
-                + str(self.children))
+                + str(self.foot) + " feet, "
+                + str(self.age) + " year(s), "
+                + self.diet + ", and "
+                + str(self.children) + " are the children.")
     
     def __eq__(self, __o: object) -> bool:
         """This function permits to verify if two objects corresponds to the same animal."""
@@ -64,7 +70,9 @@ class Human(Animal) :
 
     def add_child(self, age, name) :
         """This function permits to add a child to a human."""
-        self.children.append(child=super().__init__(self.species, self.foot, self.diet, age, [], self, name))
+        new_child = self.__init__(age, self, name)
+        print(new_child)
+        self.children.append(new_child)
         
     def show_parents(self, mother) :
         """This function permits to show all the parents/ascendants of an animal."""
@@ -76,7 +84,7 @@ class Human(Animal) :
 
     def __str__(self) -> str:
         """This function permits to show the attributes of a human."""
-        return super().__str__() + ", " + self.name 
+        return ", " + self.name + ", " + super().__str__()
     
     def __eq__(self, __o: object) -> bool:
         """This function permits to verify if two objects corresponds to the same human."""
@@ -93,7 +101,8 @@ class Snake(Animal) :
 
     def add_child(self, age, length) :
         """This function permits to add a child to a snake."""
-        self.children.append(child=super().__init__(self.species, self.foot, self.diet, age, [], self, length))
+        new_child = self.__init__(age, length)
+        self.children.append(new_child)
         
     def show_parents(self, mother) :
         """This function permits to show all the parents/ascendants of an animal."""
@@ -105,7 +114,7 @@ class Snake(Animal) :
 
     def __str__(self) -> str :
         """This function permits to show the attributes of a snake."""
-        return super().__str__() + ", " + self.length
+        return self.length + "cm, " + super().__str__()
     
     def __eq__(self, __o: object) -> bool :
         """This function permits to verify if two objects corresponds to the same snake."""
@@ -122,7 +131,8 @@ class Dog(Animal) :
         
     def add_child(self, age) :
         """This function permits to add a child to a dog."""
-        self.children.append(child=super().__init__(self.species, self.foot, self.diet, age, [], self, self.race))
+        new_child = self.__init__(age)
+        self.children.append(new_child)
         
     def show_parents(self, mother) :
         """This function permits to show all the parents/ascendants of an animal."""
@@ -134,19 +144,29 @@ class Dog(Animal) :
 
     def __str__(self) -> str :
         """This function permits to show the attributes of a dog."""
-        return super().__str__() + ", " + self.race
+        return self.race + ", " + super().__str__()
     
     def __eq__(self, __o: object) -> bool :
         """This function permits to verify if two objects corresponds to the same dog."""
         return super().__eq__(__o) and self.race == __o.race
 
 if __name__ == "__main__" :
-    human1 = Human(70, "LUCA", "Jeanne")
-    print(human1)
-    human2 = Human(human1.add_child(50, "Jeannette"))
-    print(human2)
+
+    animal1 = Animal("Rat", 4, "Omnivore", 7, "LUCA")
+    animal2 = animal1.add_child(5)
+    # animal3 = animal1.add_child(4)
+    print(animal1)
+    # print(animal2)
+    # print(animal3)
+
+    # human1 = Human(70, "LUCA", "Jeanne")
+    # human2 = human1.add_child(50, "Jeannette")
     # human3 = human1.add_child(45, "Jean")
-    # human4 = human2.add_child(30, "Jeanne-Marie")
-    # human4 = human2.add_child(25, "Jeannie")
-    
+    # # human4 = human2.add_child(30, "Jeanne-Marie")
+    # # human5 = human2.add_child(25, "Jeannie")
+    # print(human1)
+    # print(human2)
+    # print(human3)
+    # print(human4)
+    # print(human5)
 
