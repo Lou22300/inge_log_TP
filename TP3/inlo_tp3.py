@@ -18,23 +18,25 @@ class Animal() :
         self.diet = diet
         self.child_id = [] # contains not understandable id
         self.children = [] # contains names
-        self.mother = mother
-        
+        self.mother = mother # mother's name only
+        self.parents = [mother] # all the parents names starting with LUCA
+
     def add_child(self, name, age) :
         """This function permits to add a child to an animal. The child is part of the same class than the mother.
         Only a few attributes are changed."""
-        new_child = self.__class__(name, self.species, self.foot, self.diet, age, self.name) # type(self) = self.__class__
+        new_child = self.__class__(name, self.species, self.foot, self.diet, age, self.name)
+        # take the parents of the parents :
+        new_parents = self.parents
+        for element in new_parents :
+            new_child.parents.append(element)
         # two lists are created with id and name respectively at the same indexes
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child # only the name is returned
 
-    def show_parents(self, mother) : # pas encore testée
-        """This function permits to show all the parents/ascendants of an animal."""
-        if mother == "LUCA" :
-            return str(self.mother)
-        else :
-            return mother + super().show_parents(self.mother)
+    def show_parents(self) : # pas encore testée
+        """This function permits to show all the parents/ancestors of an animal."""
+        return self.parents
     
     def show_children(self) :
         """This function permits to show all the children/descendants of an animal in a list.
@@ -86,16 +88,20 @@ class Human(Animal) :
     def add_child(self, name, age) :
         """This function permits to add a child to a human.
         It is the same that for the Animal() class."""
-        new_child = self.__class__(name, age, self.name) # type(self) = self.__class__
+        new_child = self.__class__(name, self.species, self.foot, self.diet, age, self.name)
+        # take the parents of the parents :
+        new_parents = self.parents
+        for element in new_parents :
+            new_child.parents.append(element)
         # two lists are created with id and name respectively at the same indexes
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child # only the name is returned
-        
+
     def show_parents(self) :
-        """This function permits to show all the parents/ascendants of a human.
+        """This function permits to show all the parents/ancestors of a human.
         Same that for the Animal() class."""
-        return super().show_parents
+        return super().show_parents()
         
     def show_children(self) :
         """This function permits to show all the children/descendants of a human.
@@ -126,14 +132,18 @@ class Snake(Animal) :
         """This function permits to add a child to a snake.
         Different from the Animal() class function because of length."""
         new_child = self.__class__(name, age, self.name, length)
+        # take the parents of the parents :
+        new_parents = self.parents
+        for element in new_parents :
+            new_child.parents.append(element)
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child
         
     def show_parents(self) :
-        """This function permits to show all the parents/ascendants of an snake.
+        """This function permits to show all the parents/ancestors of an snake.
         Same that for the Animal() class."""
-        return super().show_parents
+        return super().show_parents()
 
     def show_children(self) :
         """This function permits to show all the children/descendants of an snake.
@@ -163,19 +173,23 @@ class Dog(Animal) :
         """This function permits to add a child to a dog.
         Different from the Animal() class function because of race."""
         new_child = self.__class__(name, age, self.name, self.race)
+        # take the parents of the parents :
+        new_parents = self.parents
+        for element in new_parents :
+            new_child.parents.append(element)
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child
-        
+   
     def show_parents(self) :
-        """This function permits to show all the parents/ascendants of a dog.
+        """This function permits to show all the parents/ancestors of a dog.
         Same that for the Animal() class."""
-        return super().show_parents
+        return super().show_parents()
         
     def show_children(self) :
         """This function permits to show all the children/descendants of a dog.
         Same that for the Animal() class."""
-        return super().show_children
+        return super().show_children()
 
     def __str__(self) -> str :
         """This function permits to show the attributes of a dog.
@@ -186,6 +200,7 @@ class Dog(Animal) :
         """This function permits to verify if two objects corresponds to the same dog.
         Same that for the Animal() class with adding the length."""
         return super().__eq__(__o) and self.race == __o.race
+
 
 if __name__ == "__main__" :
 
@@ -228,13 +243,24 @@ if __name__ == "__main__" :
     snake8 = snake3.add_child("Shella", 25, 400)
     snake9 = snake8.add_child("Shell", 20, 400)
     snake10 = snake8.add_child("Shanny", 18, 400)
-    print("\n", snake1)
-    print(snake1.children)
-    print("\n", snake2)
-    print(snake2.children)
-    print("\n", snake8)
-    print(snake8.children)
-    print("\n", snake1.show_children())
+    # print("\n", snake1)
+    # print(snake1.children)
+    # print("\n", snake2)
+    # print(snake2.children)
+    # print("\n", snake8)
+    # print(snake8.children)
+    # print("\n", snake1.show_children())
+    print(snake1.show_parents())
+    print(snake2.show_parents())
+    print(snake3.show_parents())
+    print(snake4.show_parents())
+    print(snake5.show_parents())
+    print(snake6.show_parents())
+    print(snake7.show_parents())
+    print(snake8.show_parents())
+    print(snake9.show_parents())
+    print(snake10.show_parents())
+
 
     # dog1 = Dog("Damian", 20, "LUCA", "Husky")
     # dog2 = Dog("Ronnie", 19, "LUCA", "Doberman")
@@ -248,5 +274,5 @@ if __name__ == "__main__" :
     # print(dog1.children)
     # print("\n ", dog2)
     # print(dog2.children)
-
-    
+    # print("\n", dog1.show_children())
+    # print("\n", dog2.show_children())
