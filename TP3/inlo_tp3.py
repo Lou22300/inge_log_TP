@@ -40,7 +40,7 @@ class Animal() :
         """This function permits to show all the children/descendants of an animal in a list.
         The list will contains other lists of the children's children's names."""
         if self.children == [] :
-            return "No child yet"
+            return "No child yet for " + self.name
         else :
             total_child_name_list = [] # list that will be returned
             # for every index in the list of not understandable child id :
@@ -95,12 +95,12 @@ class Human(Animal) :
     def show_parents(self) :
         """This function permits to show all the parents/ascendants of a human.
         Same that for the Animal() class."""
-        super().show_parents
+        return super().show_parents
         
     def show_children(self) :
         """This function permits to show all the children/descendants of a human.
         Same that for the Animal() class."""
-        super().show_children()
+        return super().show_children()
 
     def __str__(self) -> str:
         """This function permits to show the attributes of a human.
@@ -133,7 +133,7 @@ class Snake(Animal) :
     def show_parents(self) :
         """This function permits to show all the parents/ascendants of an snake.
         Same that for the Animal() class."""
-        super().show_parents
+        return super().show_parents
 
     def show_children(self) :
         """This function permits to show all the children/descendants of an snake.
@@ -170,12 +170,12 @@ class Dog(Animal) :
     def show_parents(self) :
         """This function permits to show all the parents/ascendants of a dog.
         Same that for the Animal() class."""
-        super().show_parents
+        return super().show_parents
         
     def show_children(self) :
         """This function permits to show all the children/descendants of a dog.
         Same that for the Animal() class."""
-        super().show_children
+        return super().show_children
 
     def __str__(self) -> str :
         """This function permits to show the attributes of a dog.
@@ -206,35 +206,35 @@ if __name__ == "__main__" :
     # print(animal3.children)
     # print(animal1.show_children())
 
-    human1 = Human("Jeanne", 70, "LUCA")
-    human2 = human1.add_child("Jeannette", 50)
-    human3 = human1.add_child("Jean", 45)
-    human4 = human2.add_child("Jeanne-Marie", 30)
-    human5 = human2.add_child("Jeannie", 25)
-    print("\n", human1)
-    print(human2)
-    print(human3)
-    print(human4)
-    print(human5)
-    print(human1.children)
-    print("\n", human1.show_children())
+    # human1 = Human("Jeanne", 70, "LUCA")
+    # human2 = human1.add_child("Jeannette", 50)
+    # human3 = human1.add_child("Jean", 45)
+    # human4 = human2.add_child("Jeanne-Marie", 30)
+    # human5 = human2.add_child("Jeannie", 25)
+    # print("\n", human1)
+    # print(human2)
+    # print(human3)
+    # print(human4)
+    # print(human5)
+    # print("\n", human1.show_children())
     
-    # snake1 = Snake("Sulivan", 40, "LUCA", 500)
-    # snake2 = snake1.add_child("Sully", 35, 400)
-    # snake3 = snake1.add_child("Snow", 33, 389)
-    # snake4 = snake1.add_child("Sam", 31, 366)
-    # snake5 = snake2.add_child("Sammy", 25, 400)
-    # snake6 = snake2.add_child("Samantha", 24, 400)
-    # snake7 = snake2.add_child("Siri", 23, 400)
-    # snake8 = snake3.add_child("Shella", 25, 400)
-    # snake9 = snake8.add_child("Shell", 20, 400)
-    # snake10 = snake8.add_child("Shanny", 18, 400)
-    # print("\n", snake1)
-    # print(snake1.children)
-    # print("\n", snake2)
-    # print(snake2.children)
-    # print("\n", snake8)
-    # print(snake8.children)
+    snake1 = Snake("Sulivan", 40, "LUCA", 500)
+    snake2 = snake1.add_child("Sully", 35, 400)
+    snake3 = snake1.add_child("Snow", 33, 389)
+    snake4 = snake1.add_child("Sam", 31, 366)
+    snake5 = snake2.add_child("Sammy", 25, 400)
+    snake6 = snake2.add_child("Samantha", 24, 400)
+    snake7 = snake2.add_child("Siri", 23, 400)
+    snake8 = snake3.add_child("Shella", 25, 400)
+    snake9 = snake8.add_child("Shell", 20, 400)
+    snake10 = snake8.add_child("Shanny", 18, 400)
+    print("\n", snake1)
+    print(snake1.children)
+    print("\n", snake2)
+    print(snake2.children)
+    print("\n", snake8)
+    print(snake8.children)
+    print("\n", snake1.show_children())
 
     # dog1 = Dog("Damian", 20, "LUCA", "Husky")
     # dog2 = Dog("Ronnie", 19, "LUCA", "Doberman")
