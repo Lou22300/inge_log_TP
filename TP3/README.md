@@ -1,4 +1,4 @@
-# TP3 Ingénierie Logicielle et analyse des données :  
+# TP3 Ingénierie Logicielle et science reproductible :  
 ## Auteure :  
 Lou Bergogne  
 *M1 DLAD*   
