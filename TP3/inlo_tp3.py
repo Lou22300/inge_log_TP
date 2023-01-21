@@ -34,15 +34,27 @@ class Animal() :
         self.child_id.append(new_child)
         return new_child # only the name is returned
 
-    def show_parents(self) : # pas encore testée
-        """This function permits to show all the parents/ancestors of an animal."""
-        return self.parents
-    
-    def show_children(self) :
+    def show_parents(self) :
+        """This function permits to show all the parents/ancestors of an animal.
+        Parents are added in a list in the function add_child.
+        Return a sentence of the ancestors."""
+        ancestors = ""
+        # If there is only one parent :
+        if len(self.parents) == 1 :
+            ancestors = self.parents[0] + " is the only parent of " + self.name + "."
+        # If there is more than one parent :
+        else :
+            self.parents.reverse() # to take the oldest parent first
+            for i in range(len(self.parents)-1) : 
+                ancestors = ancestors + self.parents[i] + ", "
+            ancestors = ancestors + "and " + self.parents[-1] + " are the parents of " + self.name + "."
+        return ancestors
+        
+    def search_all_children(self) :
         """This function permits to show all the children/descendants of an animal in a list.
         The list will contains other lists of the children's children's names."""
         if self.children == [] :
-            return "No child yet for " + self.name
+            return ["No child yet for " + self.name]
         else :
             total_child_name_list = [] # list that will be returned
             # for every index in the list of not understandable child id :
@@ -52,9 +64,13 @@ class Animal() :
                 # put it to the returned list
                 total_child_name_list.append(child_name)
                 # recursivity is used to find every child's children
-                total_child_name_list.append(__class__.show_children(self.child_id[i]))
+                total_child_name_list.append(__class__.search_all_children(self.child_id[i]))
             return total_child_name_list
     
+    def show_children(self) :
+        first_step = Animal.search_all_children(self)
+        return "\nThe descendants of " + self.name + " are " + str(first_step) + "\n"
+
     def __str__(self) -> str :
         count_children = len(self.children)
         """This function permits to show the attributes of an animal."""
@@ -88,7 +104,7 @@ class Human(Animal) :
     def add_child(self, name, age) :
         """This function permits to add a child to a human.
         It is the same that for the Animal() class."""
-        new_child = self.__class__(name, self.species, self.foot, self.diet, age, self.name)
+        new_child = self.__class__(name, age, self.name)
         # take the parents of the parents :
         new_parents = self.parents
         for element in new_parents :
@@ -220,29 +236,31 @@ if __name__ == "__main__" :
     # print("\n", animal3)
     # print(animal3.children)
     # print(animal1.show_children())
+    # print(animal9.show_parents())
 
-    # human1 = Human("Jeanne", 70, "LUCA")
-    # human2 = human1.add_child("Jeannette", 50)
-    # human3 = human1.add_child("Jean", 45)
-    # human4 = human2.add_child("Jeanne-Marie", 30)
-    # human5 = human2.add_child("Jeannie", 25)
-    # print("\n", human1)
-    # print(human2)
-    # print(human3)
-    # print(human4)
-    # print(human5)
-    # print("\n", human1.show_children())
+    human1 = Human("Jeanne", 70, "LUCA")
+    human2 = human1.add_child("Jeannette", 50)
+    human3 = human1.add_child("Jean", 45)
+    human4 = human2.add_child("Jeanne-Marie", 30)
+    human5 = human2.add_child("Jeannie", 25)
+    print("\n", human1)
+    print(human2)
+    print(human3)
+    print(human4)
+    print(human5)
+    print("\n", human1.show_children())
+    print(human1.show_parents())
     
-    snake1 = Snake("Sulivan", 40, "LUCA", 500)
-    snake2 = snake1.add_child("Sully", 35, 400)
-    snake3 = snake1.add_child("Snow", 33, 389)
-    snake4 = snake1.add_child("Sam", 31, 366)
-    snake5 = snake2.add_child("Sammy", 25, 400)
-    snake6 = snake2.add_child("Samantha", 24, 400)
-    snake7 = snake2.add_child("Siri", 23, 400)
-    snake8 = snake3.add_child("Shella", 25, 400)
-    snake9 = snake8.add_child("Shell", 20, 400)
-    snake10 = snake8.add_child("Shanny", 18, 400)
+    # snake1 = Snake("Sulivan", 40, "LUCA", 500)
+    # snake2 = snake1.add_child("Sully", 35, 400)
+    # snake3 = snake1.add_child("Snow", 33, 389)
+    # snake4 = snake1.add_child("Sam", 31, 366)
+    # snake5 = snake2.add_child("Sammy", 25, 400)
+    # snake6 = snake2.add_child("Samantha", 24, 400)
+    # snake7 = snake2.add_child("Siri", 23, 400)
+    # snake8 = snake3.add_child("Shella", 25, 400)
+    # snake9 = snake8.add_child("Shell", 20, 400)
+    # snake10 = snake8.add_child("Shanny", 18, 400)
     # print("\n", snake1)
     # print(snake1.children)
     # print("\n", snake2)
@@ -250,17 +268,7 @@ if __name__ == "__main__" :
     # print("\n", snake8)
     # print(snake8.children)
     # print("\n", snake1.show_children())
-    print(snake1.show_parents())
-    print(snake2.show_parents())
-    print(snake3.show_parents())
-    print(snake4.show_parents())
-    print(snake5.show_parents())
-    print(snake6.show_parents())
-    print(snake7.show_parents())
-    print(snake8.show_parents())
-    print(snake9.show_parents())
-    print(snake10.show_parents())
-
+    # print(snake10.show_parents())
 
     # dog1 = Dog("Damian", 20, "LUCA", "Husky")
     # dog2 = Dog("Ronnie", 19, "LUCA", "Doberman")
@@ -276,3 +284,5 @@ if __name__ == "__main__" :
     # print(dog2.children)
     # print("\n", dog1.show_children())
     # print("\n", dog2.show_children())
+    # print(dog8.show_parents())
+    # print(dog1.show_parents())
