@@ -33,7 +33,7 @@ class Animal() :
         # two lists are created with id and name respectively at the same indexes
         self.children.append(new_child.name)
         self.child_id.append(new_child)
-        return new_child # only the name is returned
+        return new_child
 
     def show_parents(self) :
         """This function permits to show all the parents/ancestors of an animal.
