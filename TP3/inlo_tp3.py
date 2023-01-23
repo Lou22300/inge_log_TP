@@ -73,7 +73,7 @@ class Animal() :
 
     def show_children(self) :
         """This function is used to print all the descendants of an animal.
-        The function is also called in the classes that inherited of Animal.
+        The function can be called in the classes that inherited of Animal.
         The function call the search_all_children_function."""
         first_step = Animal.search_all_children(self)
         return "\nThe descendants of " + self.name + " are " + str(first_step) + "\n"
@@ -120,25 +120,10 @@ class Human(Animal) :
         self.child_id.append(new_child)
         return new_child # only the name is returned
 
-    def show_parents(self) :
-        """This function permits to show all the parents/ancestors of a human.
-        Same that for the Animal() class."""
-        return super().show_parents()
-
-    def show_children(self) :
-        """This function permits to show all the children/descendants of a human.
-        Same that for the Animal() class."""
-        return super().show_children()
-
     def __str__(self) -> str:
         """This function permits to show the attributes of a human.
         Same that for the Animal() class, with adding a point."""
         return super().__str__() + "."
-
-    def __eq__(self, __o: object) -> bool:
-        """This function permits to verify if two objects corresponds to the same human.
-        Same that for the Animal() class."""
-        return super().__eq__(__o)
 
 class Snake(Animal) :
     """This class inherits of some attributes of Animal() and have one spécific attributes."""
@@ -160,16 +145,6 @@ class Snake(Animal) :
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child
-
-    def show_parents(self) :
-        """This function permits to show all the parents/ancestors of an snake.
-        Same that for the Animal() class."""
-        return super().show_parents()
-
-    def show_children(self) :
-        """This function permits to show all the children/descendants of an snake.
-        Same that for the Animal() class."""
-        return super().show_children()
 
     def __str__(self) -> str :
         """This function permits to show the attributes of a snake.
@@ -200,16 +175,6 @@ class Dog(Animal) :
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child
-
-    def show_parents(self) :
-        """This function permits to show all the parents/ancestors of a dog.
-        Same that for the Animal() class."""
-        return super().show_parents()
-
-    def show_children(self) :
-        """This function permits to show all the children/descendants of a dog.
-        Same that for the Animal() class."""
-        return super().show_children()
 
     def __str__(self) -> str :
         """This function permits to show the attributes of a dog.
