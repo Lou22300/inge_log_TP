@@ -12,15 +12,15 @@ class Animal() :
         """This function creates an animal with those attributes. Names must be given so that
         we can find the children and the parents of an animal. The mother of an animal of an
         animal create as first of its family must be specified."""
-        self.name = name
-        self.species = species
-        self.foot = foot
-        self.age = age
-        self.diet = diet
-        self.child_id = [] # contains not understandable id
-        self.children = [] # contains names
-        self.mother = mother # mother's name only
-        self.parents = [mother] # all the parents names starting with LUCA
+        self.name: str = name
+        self.species: str = species
+        self.foot: int = foot
+        self.age: int = age
+        self.diet: str = diet
+        self.child_id: list = [] # contains not understandable id
+        self.children: list = [] # contains names
+        self.mother: str = mother # mother's name only
+        self.parents: list = [mother] # all the parents names starting with LUCA
 
     def add_child(self, name, age) :
         """This function permits to add a child to an animal.
@@ -141,7 +141,7 @@ class Snake(Animal) :
         """This function create a snake with those attributes.
         Same that for the Animal() class, with adding the length."""
         super().__init__(name, "Snake", 0, "Carnivore", age, mother)
-        self.length = length
+        self.length: float = length
 
     def add_child(self, name, age, length) :
         """This function permits to add a child to a snake.
@@ -172,7 +172,7 @@ class Dog(Animal) :
     def __init__(self, name, age, mother, race) -> None :
         """This function creates a dog with those attributes."""
         super().__init__(name, "Dog", 4, "Carnivore", age, mother)
-        self.race = race
+        self.race: str = race
 
     def add_child(self, name, age) :
         """This function permits to add a child to a dog.
@@ -217,14 +217,14 @@ if __name__ == "__main__" :
 
     snake1 = Snake("Sulivan", 40, "LUCA", 500)
     snake2 = snake1.add_child("Sully", 35, 400)
-    snake3 = snake1.add_child("Snow", 33, 389)
+    snake3 = snake1.add_child("Snow", 33, 389.5)
     snake4 = snake1.add_child("Sam", 31, 366)
     snake5 = snake2.add_child("Sammy", 25, 400)
-    snake6 = snake2.add_child("Samantha", 24, 400)
-    snake7 = snake2.add_child("Siri", 23, 400)
-    snake8 = snake3.add_child("Shella", 25, 400)
-    snake9 = snake8.add_child("Shell", 20, 400)
-    snake10 = snake8.add_child("Shanny", 18, 400)
+    snake6 = snake2.add_child("Samantha", 24, 400.5)
+    snake7 = snake2.add_child("Siri", 23, 377)
+    snake8 = snake3.add_child("Shella", 25, 153)
+    snake9 = snake8.add_child("Shell", 20, 113)
+    snake10 = snake8.add_child("Shanny", 18, 90.5)
 
     dog1 = Dog("Damian", 20, "LUCA", "Husky")
     dog2 = Dog("Ronnie", 19, "LUCA", "Doberman")
