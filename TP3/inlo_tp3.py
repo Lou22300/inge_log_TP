@@ -1,9 +1,9 @@
 # encoding: utf8
 
-"""In this program we use classes. We can create animals. Each class can have
-some common attributes but can also have specific attributes. Each animal can have
-children and eeach child can have a mother. We can find all the descendant of an
-animal and find the parents of a child."""
+"""In this program we use classes. We can create animals. Each class can have some common
+attributes but can also have specific attributes. Each animal can have children and eeach
+child can have a mother. We can find all the descendant of an animal and find the parents
+of a child."""
 
 class Animal() :
     """This is the class on which depend the other classes."""
@@ -62,13 +62,13 @@ class Animal() :
         else :
             total_child_name_list = [] # list that will be returned
             # for every index in the list of not understandable child id :
-            for i in range(len(self.child_id)) :
-                # take the child name in the other list
-                child_name = self.children[i]
+            for ind,items in enumerate(self.child_id):
+                # take the child name in the other list (same index)
+                child_name = self.children[ind]
                 # put it to the returned list
                 total_child_name_list.append(child_name)
                 # recursivity is used to find every child's children
-                total_child_name_list.append(__class__.search_all_children(self.child_id[i]))
+                total_child_name_list.append(__class__.search_all_children(items))
         return total_child_name_list
 
     def show_children(self) :
