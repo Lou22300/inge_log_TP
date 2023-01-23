@@ -1,7 +1,7 @@
 # encoding: utf8
 
 """In this program we use classes. We can create animals. Each class can have some common
-attributes but can also have specific attributes. Each animal can have children and eeach
+attributes but can also have specific attributes. Each animal can have children and each
 child can have a mother. We can find all the descendant of an animal and find the parents
 of a child."""
 
@@ -10,7 +10,8 @@ class Animal() :
 
     def __init__(self, name, species, foot, diet, age, mother) -> None :
         """This function creates an animal with those attributes. Names must be given so that
-        we can find the children and the parents of an animal."""
+        we can find the children and the parents of an animal. The mother of an animal of an
+        animal create as first of its family must be specified."""
         self.name = name
         self.species = species
         self.foot = foot
@@ -25,12 +26,15 @@ class Animal() :
         """This function permits to add a child to an animal.
         The child is part of the same class than the mother.
         Only a few attributes are changed."""
+        # creates a new specimen :
         new_child = self.__class__(name, self.species, self.foot, self.diet, age, self.name)
-        # take the parents of the parents :
+        # take the parents/anceestors of the parent/mother :
         new_parents = self.parents
+        # And add them to the child's ancestors list :
         for element in new_parents :
             new_child.parents.append(element)
-        # two lists are created with id and name respectively at the same indexes
+        # For the mother, two lists are modified by adding
+        # id and name of the child at the same indexes
         self.children.append(new_child.name)
         self.child_id.append(new_child)
         return new_child
@@ -40,17 +44,19 @@ class Animal() :
         Parents are added in a list in the function add_child.
         Return a sentence of the ancestors."""
         ancestors = ""
-        # If there is only one parent :
+        # If there is only one parent : Only show this one
         if len(self.parents) == 1 :
             ancestors = self.parents[0] + " is the only parent of " + self.name + "."
         # If there is more than one parent :
         else :
             self.parents.reverse() # to take the oldest parent first
+            # creates a sentence returning the names of the ancestors :
             for i in range(len(self.parents)-1) :
                 ancestors = ancestors + self.parents[i] + ", "
+            # adding the last one after the 'and' and finish the sentence :
             ancestors = (ancestors + "and "
                          + self.parents[-1]
-                         + " are the parents of "
+                         + " are the ancestors of "
                          + self.name + ".")
         return ancestors
 
@@ -87,7 +93,8 @@ class Animal() :
                 + str(self.age) + " year(s), mother is "
                 + self.mother + ", "
                 + self.diet + ", and have "
-                + str(count_children) + " children")
+                + str(count_children) + " children : "
+                + str(self.children))
 
     def __eq__(self, __o: object) -> bool:
         """This function permits to verify if two objects corresponds to the same animal."""
@@ -108,8 +115,9 @@ class Human(Animal) :
         super().__init__(name, "Human", 2, "Omnivore", age, mother)
 
     def add_child(self, name, age) :
-        """This function permits to add a child to a human.
-        It is the same that for the Animal() class."""
+        """This function permits to add a child to a human. It is the same that for
+        the Animal() class, but the new specimen is part of the Human class instead
+        of Animal class."""
         new_child = self.__class__(name, age, self.name)
         # take the parents of the parents :
         new_parents = self.parents
@@ -126,7 +134,8 @@ class Human(Animal) :
         return super().__str__() + "."
 
 class Snake(Animal) :
-    """This class inherits of some attributes of Animal() and have one spécific attributes."""
+    """This class inherits of some attributes of Animal() and have one
+    spécific attributes."""
 
     def __init__(self, name, age, mother, length) -> None :
         """This function create a snake with those attributes.
@@ -157,7 +166,8 @@ class Snake(Animal) :
         return super().__eq__(__o) and self.length == __o.length
 
 class Dog(Animal) :
-    """This class inherits of some attributes of Animal() and have one spécific attributes."""
+    """This class inherits of some attributes of Animal() and have
+    one spécific attributes."""
 
     def __init__(self, name, age, mother, race) -> None :
         """This function creates a dog with those attributes."""
@@ -226,7 +236,6 @@ if __name__ == "__main__" :
     dog8 = dog2.add_child("Rex", 5)
 
     print("---------------------------------------------------\n\n", animal1)
-    print(animal1.children)
     print(animal1.show_children())
     print(animal9.show_parents(), "\n")
 
@@ -235,7 +244,6 @@ if __name__ == "__main__" :
     print(human5.show_parents(), "\n")
 
     print("---------------------------------------------------\n\n", snake1)
-    print(snake1.children)
     print(snake1.show_children())
     print(snake10.show_parents(), "\n")
 
