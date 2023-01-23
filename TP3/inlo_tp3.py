@@ -85,8 +85,8 @@ class Animal() :
         return "\nThe descendants of " + self.name + " are " + str(first_step) + "\n"
 
     def __str__(self) -> str :
-        count_children = len(self.children)
         """This function permits to show the attributes of an animal."""
+        count_children = len(self.children)
         return (self.name + ", "
                 + self.species + ", "
                 + str(self.foot) + " feet, "
