@@ -1,9 +1,9 @@
 # encoding utf-8
 
-from collections import deque
-
 """This program permits to create binary trees. We can add nodes, calculate the depth
 and display the tree from a chosen node."""
+
+from collections import deque
 
 class BinaryTree() :
     """This class permits to create the root of a binary tree."""
@@ -74,36 +74,15 @@ class Node() :
         tree = str(self)
         if self.left :
             tree += "\n"
-            for i in range(0, level+1) :
+            for _ in range(0, level+1) :
                 tree += "\t"
             tree += self.left.display_left_right(level+1)
         if self.right :
             tree += "\n"
-            for i in range(0, level+1) :
+            for _ in range(0, level+1) :
                 tree += "\t"
             tree += self.right.display_left_right(level+1)
         return tree
-
-    # def display_up_down(self, level = 0) :
-    #     """This methods is used to display the tree from up to down. It uses recursion to increase
-    #     the level in the tree using the max_depth. The level is first set to 0."""
-    #     max_depth = self.find_depth()
-    #     nb_val_final = 2**max_depth
-    #     # pour le premier noeud :
-    #     left_space_nb = int(nb_val_final/(2**(level)))
-    #     right_space_nb = int(nb_val_final/(2**(level)))
-    #     left_space = ""
-    #     right_space = ""
-    #     for i in range(left_space_nb) :
-    #         left_space += "  "
-    #     for i in range(right_space_nb) :
-    #         right_space += "  "
-    #     tree = left_space + str(self) + right_space + "\n"
-    #     if self.left :
-    #         tree += self.left.display_up_down(level + 1)
-    #     if self.right :
-    #         tree += self.right.display_up_down(level + 1)
-    #     return tree
 
     def dico_for_up_down(self) :
         """This methods is used to create a dictionnary containing the tree. The dictionnary keys
@@ -124,7 +103,7 @@ class Node() :
             # Get the number of nodes in the queue
             nodes_number = len(queue)
             # Loop through the nodes at the current level :
-            for j in range(nodes_number) :
+            for _ in range(nodes_number) :
                 # Remove the first node from the queue :
                 current_node = queue.popleft()
                 # Put the node in the dictionnary :
@@ -135,25 +114,42 @@ class Node() :
                     if current_node.left :
                         queue.append(current_node.left)
                     else : # Else, add a tab :
-                        queue.append("\t")
+                        queue.append(" () ")
                     # If the current node has a right child, add it to the queue :
                     if current_node.right :
                         queue.append(current_node.right)
                     else : # Else, add a tab :
-                        queue.append("\t")
+                        queue.append(" () ")
                 # If the element in the queue is "\t" :
                 else :
-                    queue.append("\t") # for the missing left child
-                    queue.append("\t") # for the missing right child
+                    queue.append(" () ") # for the missing left child
+                    queue.append(" () ") # for the missing right child
         return dico
 
     def display_up_down(self) :
+        """This method is used to print the tree for up to down. It calls the dico_for_up_down
+        method to create a dictionnary containing all the nodes of the tree per level. It prints
+        the tree level by level."""
+        # Creates the dict that contains the nodes :
         dico = self.dico_for_up_down()
+        # Creates the list of the number of tab between nodes :
         space_number_list = []
-        for i in range(len(dico.keys())) :
-            space_number_list.append(int((2**i)/2))
-        space_number_list.reverse()
-        return space_number_list
+        for i in range(0,len(dico.keys())) :
+            space_number_list.append(int(100/2**i)-2) # cleanest print i found
+        # Creates a list that contains the space between nodes :
+        white_space_list = space_number_list # same length
+        for index, element in enumerate(space_number_list) :
+            new_space = " "*element
+            white_space_list[index] = new_space
+        # Initialize the tree as string :
+        tree = ""
+        # Displays the tree level by level :
+        for level in range(len(dico)) :
+            for val in dico[level] :
+                new_line = white_space_list[level] + val + white_space_list[level]
+                tree += new_line
+            tree += "\n"
+        return tree
 
     def is_leaf(self) :
         """This methods is used to know if we are at the end of a branch or if there is still
@@ -184,21 +180,21 @@ class Node() :
 
 if __name__ == "__main__" :
     # creation of the nodes :
-    node1 = Node(1)
-    node2 = Node(2)
-    node3 = Node(3)
-    node4 = Node(4)
-    node5 = Node(5)
-    node6 = Node(6)
-    node7 = Node(7)
-    node8 = Node(8)
-    node9 = Node(9)
-    node10 = Node(10)
-    node11 = Node(11)
-    node12 = Node(12)
-    node13 = Node(13)
-    node14 = Node(14)
-    node15 = Node(15)
+    node1 = Node("01")
+    node2 = Node("02")
+    node3 = Node("03")
+    node4 = Node("04")
+    node5 = Node("05")
+    node6 = Node("06")
+    node7 = Node("07")
+    node8 = Node("08")
+    node9 = Node("09")
+    node10 = Node("10")
+    node11 = Node("11")
+    node12 = Node("12")
+    node13 = Node("13")
+    node14 = Node("14")
+    node15 = Node("15")
     # creation of the tree starting with the first node as root :
     tree1 = BinaryTree()
     tree1.root = node1
@@ -216,6 +212,12 @@ if __name__ == "__main__" :
     # displaying the tree from node 1 to the end on one line :
     print(node1.display_node(), "\n")
     # displaying the tree from the left to the right :
-    # print(tree1.tree_left_right(),"\n")
+    print("_______________________________________________________________________")
+    print(tree1.tree_left_right(),"\n")
     # displaying the tree from up to down :
-    print(tree1.tree_up_down())
+    print("_______________________________________________________________________")
+    print(tree1.tree_up_down(), "\n")
+    # And adding it to a file :
+    tree_text = (tree1.tree_up_down())
+    with open("the_tree.txt", "w", encoding = "utf-8") as tree_file :
+        tree_file.write(tree_text)
