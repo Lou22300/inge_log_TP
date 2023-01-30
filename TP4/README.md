@@ -8,3 +8,5 @@ Dans ce TP, on crée une première classe *Binary_tree*, et une deuxième classe
 On peut **ajouter des noeuds à l'arbre** et **afficher l'arbre** de deux manières :  
 - avec une arborescence de *gauche à droite*,  
 - avec une arborescence de *haut en bas*.  
+On peut obtenir la profondeur maximale de l'arbre, donc sa hauteur, avec la fonction *tree_depth*.
+On peut aussi obtenir la taille de l'arbre, donc le nombre de noeuds, avec le fonction *tree_size*.
