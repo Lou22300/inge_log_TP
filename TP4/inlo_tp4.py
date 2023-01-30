@@ -234,9 +234,12 @@ if __name__ == "__main__" :
     print("_______________________________________________________________________")
     print(tree1.tree_up_down(), "\n")
     # And adding it to a file :
-    tree_text = (tree1.tree_up_down())
     with open("the_tree.txt", "w", encoding = "utf-8") as tree_file :
-        tree_file.write(tree_text)
+        tree_file.write("Tree displayed from left to right :\n\n")
+        tree_file.write(tree1.tree_left_right())
+        tree_file.write("\n\n\n")
+        tree_file.write("Tree displayed from up to down :\n\n")
+        tree_file.write(tree1.tree_up_down())
     # to print the max_depth of the tree :
     print("The max depth of the tree is : ", tree1.tree_depth(), "\n")
     # to print the size of the tree :

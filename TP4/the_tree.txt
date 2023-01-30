@@ -1,3 +1,24 @@
+Tree displayed from left to right :
+
+01/0
+	02/1
+		04/2
+			07/3
+			08/3
+				11/4
+					15/5
+				12/4
+		05/2
+	03/1
+		06/2
+			09/3
+				13/4
+				14/4
+			10/3
+
+
+Tree displayed from up to down :
+
                                                                                                   01/0                                                                                                  
                                                 02/1                                                                                                03/1                                                
                        04/2                                              05/2                                              06/2                                               ()                        
