@@ -11,6 +11,14 @@ class BinaryTree() :
         """"Initialization of the tree."""
         self.root = None
 
+    def tree_depth(self) :
+        """Returns the max depth in the tree."""
+        return self.root.find_depth()
+
+    def tree_size(self) :
+        """Returns the size of the tree = total nodes number."""
+        return self.root.find_size()
+
     def tree_left_right(self) :
         """Displaying the tree from the root to the end, from left to right."""
         return self.root.display_left_right()
@@ -151,6 +159,16 @@ class Node() :
             tree += "\n"
         return tree
 
+    def find_size(self, nodes_number = 1) :
+        """This method is used to find the size of a tree : total number of nodes."""
+        if self.left :
+            nodes_number += 1
+            nodes_number = self.left.find_size(nodes_number)
+        if self.right :
+            nodes_number += 1
+            nodes_number = self.right.find_size(nodes_number)
+        return nodes_number
+
     def is_leaf(self) :
         """This methods is used to know if we are at the end of a branch or if there is still
         at least another node after the actual one. The method is called in the find_depth method.
@@ -207,8 +225,6 @@ if __name__ == "__main__" :
     node3.add_node(node6)
     node6.add_node(node9, node10)
     node9.add_node(node13, node14)
-    # searching the max_depth from node 1 to the end of the tree :
-    print(node1.find_depth(0), "\n")
     # displaying the tree from node 1 to the end on one line :
     print(node1.display_node(), "\n")
     # displaying the tree from the left to the right :
@@ -221,3 +237,7 @@ if __name__ == "__main__" :
     tree_text = (tree1.tree_up_down())
     with open("the_tree.txt", "w", encoding = "utf-8") as tree_file :
         tree_file.write(tree_text)
+    # to print the max_depth of the tree :
+    print("The max depth of the tree is : ", tree1.tree_depth(), "\n")
+    # to print the size of the tree :
+    print("The size of the tree is : ", tree1.tree_size(), "\n")
