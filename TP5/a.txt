@@ -1,0 +1,7 @@
+Human,22,omnivore,2,Rochelle
+Human,21,omnivore,2,Audrey
+Human,25,omnivore,2,Mohamed
+Human,21,Carnivore,2,Lou
+Human,21,Omnivore,2,Cornélia
+HUman,25,Omnivore,2,Thomas
+Human,23,Vegetarian,2,Lynn
