@@ -88,40 +88,17 @@ class Model():
         """
         # CHECK IF THE ANIMAL ALREADY EXIST :
         does_name_exist = False
-        line_counter = 0
         # for each name in the text file :
         for names in self.dico_animaux :
-            line_counter += 1
             # if the name in the entry matches one of the name in the file :
             if dict_animal["name"] == names :
                 does_name_exist = True
                 break
         # IF THE ANIMAL DOESN'T ALREADY EXIST -> ADDED TO THE FILE :
         if does_name_exist is False :
-            self.save_new_animal(dict_animal)
+            self.add_animal_to_dico_animaux(dict_animal)
             return 0
         # IF THE ANIMAL ALREADY EXISTS -> MODIFIED IN THE FILE :
-        else :
-            self.modify_animal(dict_animal)
-            return 1
-
-    def save_new_animal(self, dict_animal) :
-        """
-        If the animal to save doesn't already exist in the text file, it is added
-        in a new line with all the attributes in the entries.
-        """
-        self.file.write("\n" + dict_animal["species"] + "," +
-                            dict_animal["age"] + "," +
-                            dict_animal["diet"] + "," +
-                            dict_animal["foot"] + "," +
-                            dict_animal["name"])
-
-    def modify_animal(self, dict_animal) :
-        """
-        If the animal to save already exists in the text file, it is modified.
-        The line that already exists is deleted and a new line is added.
-        If some entries are empty, the previous attribute is kept.
-        """
         if dict_animal["species"] == "" :
             dict_animal["species"] = self.dico_animaux[dict_animal["name"]].species
         if dict_animal["age"] == "" :
@@ -131,24 +108,41 @@ class Model():
         if dict_animal["foot"] == "" :
             dict_animal["foot"] = self.dico_animaux[dict_animal["name"]].foot
         self.delete_an_animal(dict_animal["name"])
-        self.file.write("\n" + dict_animal["species"] + "," +
-                        dict_animal["age"] + "," +
-                        dict_animal["diet"] + "," +
-                        dict_animal["foot"] + "," +
-                        dict_animal["name"])
+        self.add_animal_to_dico_animaux(dict_animal)
+        return 1
+
+    def add_animal_to_dico_animaux(self, dict_animal) :
+        """
+        To add an animal to the dict that contains all the animals.
+        Called in the save_new_animal and the modify_animal methods
+        from the model.
+        """
+        all_animal_attr = Animal(dict_animal["species"],
+                                 dict_animal["age"],
+                                 dict_animal["diet"],
+                                 dict_animal["foot"],
+                                 dict_animal["name"])
+        self.dico_animaux[all_animal_attr.name] = all_animal_attr
 
     def delete_an_animal(self, name_to_delete) :
         """
-        To save the modifications in the text file when an animal is deleted.
+        To delete an animal from the dictionnary of all the animal.
+        The modifications will be saved while rpessing the 'save' or 'save and quit buttons'.
         """
-        self.file.seek(0) # Cursor back to the start of the text file.
-        lines = self.file.readlines()  # list of all the line of the file.
-        self.file.seek(0)  # Cursor back to the start of the text file.
-        self.file.truncate() # to erase the content of the all file.
-        for line in lines: # take all the lines and compare the name to the name_to_delete.
-            line_list = line.strip().split(',')
-            if line_list[-1] != name_to_delete: # if it is not the line to delete
-                self.file.write(line)  # the line is written in the file.
+        del self.dico_animaux[name_to_delete]
+
+    def rewrite_file(self) :
+        """
+        To rewrite the animals in the dico_animaux with the new modifications.
+        """
+        self.file.truncate(0)
+        self.file.seek(0)
+        for animal in self.dico_animaux.values() :
+            self.file.write(animal.species + "," +
+                            animal.age + "," +
+                            animal.diet + "," +
+                            animal.foot + "," +
+                            animal.name + "\n")
 
     def close(self):
         """
@@ -159,4 +153,5 @@ class Model():
 if __name__ == "__main__" :
     model = Model("a.txt")
     model.read_file()
+    print(model.dico_animaux["Swiffer"])
     model.close()

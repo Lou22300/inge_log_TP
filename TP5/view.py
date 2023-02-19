@@ -32,12 +32,13 @@ class Application(Tk):
         # LABELS :
         self.label = Label(self, text="J'adore Python !")
         self.label1 = Label(self, text="")
-        self.label_search = Label(self, text="Recherche")
+        self.label_search = Label(self, text="Search")
         # BUTTONS :
-        self.bouton_display = Button(self, text="Afficher", command=self.display_something)
-        self.bouton_quit = Button(self, text="Quitter", command=self.quit_window)
+        self.bouton_display = Button(self, text="Display", command=self.display_something)
+        self.bouton_quit = Button(self, text="Save and Quit", command=self.quit_window)
         self.bouton_add_animal = Button(self, text="Add / Modify", command=self.add_modify_animal)
         self.bouton_delete_animal = Button(self, text="Delete", command=self.delete_animal)
+        self.bouton_save = Button(self, text = "Save", command=self.save_the_file)
         # ENTRIES :
         self.entries = {}
         self.entries_label = {}
@@ -61,6 +62,7 @@ class Application(Tk):
             self.entries[att].pack()
         self.bouton_add_animal.pack()
         self.bouton_delete_animal.pack()
+        self.bouton_save.pack()
         self.bouton_quit.pack()
 
     def display_something(self):
@@ -101,6 +103,13 @@ class Application(Tk):
             value.delete(0,END)
         self.controller.add_modify_animal(dict_animal)
 
+    def add_animal_to_listbox(self, name_to_add) :
+        """
+        To add an animal that have just been added to the dictionnary in the listbox.
+        It is called by the add_modify_aniaml method from the controller.
+        """
+        self.liste.insert(END, name_to_add)
+
     def delete_animal(self):
         """
         To delete an animal from the text file.
@@ -112,18 +121,26 @@ class Application(Tk):
             if self.liste.get(i) == name_to_delete : # index = i for the name to delete.
                 self.liste.delete(i) # we delete the name corresponding to the right index.
                 break # names are unique so we can stop there.
-
-    def save_pop_up(self) :
-        messagebox.showinfo("adding new animal", "The new animal has been successfully added!")
-
-    def modify_pop_up(self) :
-        messagebox.showinfo("modifying the animal", "The animal has been successfully modified!")
-
-    def delete_pop_up(self) :
         messagebox.showinfo("deleting an animal", "The animal has been successfully deleted!")
 
+    def display_pop_up(self, value) :
+        """
+        Called in the add_modify_animal method of the controller. A value is passed in argument.
+        A different pop_up is displayed depending on the case.
+        """
+        if value == 1 :
+            messagebox.showinfo("adding new animal",
+                                "The new animal has been successfully added!")
+        if value == 2 :
+            messagebox.showinfo("modifying the animal",
+                                "The animal has been successfully modified!")
+        if value == 3 :
+            messagebox.showwarning("error",
+                                   "You may enter at leat a name !")
+
     def quit_pop_up(self) :
-        messagebox.showinfo("quit", "Close app.")
+        """This pop_up is displayed when the 'Save and Quit' button is pressed."""
+        messagebox.showinfo("quit", "The modifications have been saved.\nClose app.")
 
     def view_window(self):
         """
@@ -131,6 +148,13 @@ class Application(Tk):
         """
         self.title("Ma Première App :-)")
         self.mainloop()
+
+    def save_the_file(self) :
+        """
+        To save the file without closing the window.
+        """
+        self.controller.save_the_file()
+        messagebox.showinfo("saving", "The modifications have been saved !")
 
     def quit_window(self):
         """

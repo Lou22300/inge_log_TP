@@ -53,22 +53,35 @@ class Controller() :
         from the entries and add an animal to the text file.
         If the name of the animal already is in the text file, it just
         modify the attributes if they are changed.
+        It will display different opo-ups on the view depending on the case.
+        For that, it uses the display_pop_up method of the view.
         """
-        choice = self.model.save_modify_animal(dict_animal)
-        if choice == 0 :
-            self.view.save_pop_up()
-        if choice == 1 :
-            self.view.modify_pop_up()
+        if dict_animal["name"] != "" :
+            choice = self.model.save_modify_animal(dict_animal)
+            if choice == 0 :
+                self.view.display_pop_up(1)
+                self.view.add_animal_to_listbox(dict_animal["name"])
+            if choice == 1 :
+                self.view.display_pop_up(2)
+        else :
+            self.view.display_pop_up(3)
 
     def delete_animal(self, name_to_delete):
         """
         Permits do delete a selected animal from the text file.
         """
         self.model.delete_an_animal(name_to_delete)
-        self.view.delete_pop_up()
+
+    def save_the_file(self) :
+        """
+        To save all the modifications. It uses the dico_animaux from the model.
+        The file is errased and rewrited with all the animal that are in the dictionnary.
+        """
+        self.model.rewrite_file()
 
     def quit_window(self):
         """To close de window displayed by the view and the text file opened by the model."""
+        self.save_the_file()
         self.view.quit_pop_up()
         self.model.close()
         self.view.destroy()
